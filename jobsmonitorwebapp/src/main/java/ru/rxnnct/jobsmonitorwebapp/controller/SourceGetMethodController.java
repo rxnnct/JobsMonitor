@@ -47,5 +47,4 @@ public class SourceGetMethodController {
     public void delete(@PathVariable("id") SourceGetMethod sourceGetMethod) {
         sourceGetMethodRepo.delete(sourceGetMethod);
     }
-    //test
 }
