@@ -1,7 +1,7 @@
-package ru.rxnnct.jobsmonitorwebapp.repo;
+package ru.rxnnct.jobsmonitor.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.rxnnct.jobsmonitorwebapp.domain.User;
+import ru.rxnnct.jobsmonitor.domain.User;
 
 public interface UserDetailsRepo extends JpaRepository<User, String> {
 }

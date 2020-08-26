@@ -1,4 +1,4 @@
-package ru.rxnnct.jobsmonitorwebapp.domain;
+package ru.rxnnct.jobsmonitor.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 

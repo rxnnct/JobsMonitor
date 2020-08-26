@@ -1,4 +1,4 @@
-package ru.rxnnct.jobsmonitorwebapp.config;
+package ru.rxnnct.jobsmonitor.config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import ru.rxnnct.jobsmonitorwebapp.domain.Role;
-import ru.rxnnct.jobsmonitorwebapp.domain.User;
-import ru.rxnnct.jobsmonitorwebapp.repo.UserDetailsRepo;
+import ru.rxnnct.jobsmonitor.domain.Role;
+import ru.rxnnct.jobsmonitor.domain.User;
+import ru.rxnnct.jobsmonitor.repo.UserDetailsRepo;
 
 import java.util.Collections;
 

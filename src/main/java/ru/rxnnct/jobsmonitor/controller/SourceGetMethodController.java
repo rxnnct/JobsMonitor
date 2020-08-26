@@ -1,10 +1,10 @@
-package ru.rxnnct.jobsmonitorwebapp.controller;
+package ru.rxnnct.jobsmonitor.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.rxnnct.jobsmonitorwebapp.domain.SourceGetMethod;
-import ru.rxnnct.jobsmonitorwebapp.repo.SourceGetMethodRepo;
+import ru.rxnnct.jobsmonitor.domain.SourceGetMethod;
+import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
 import java.util.List;
 
