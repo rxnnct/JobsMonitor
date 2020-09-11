@@ -1,6 +1,6 @@
 function getIndex(list, id) {
     for (var i = 0; i < list.length; i++) {
-        if(list[i].id === id){
+        if (list[i].id === id) {
             return i;
         }
     }
@@ -13,14 +13,14 @@ var sourceGetMethodApi = Vue.resource('api/source-get-methods{/id}')
 Vue.component('source-get-method-form', {
     props: ['sourceGetMethods', 'sourceGetMethodAttr'],
     data: function () {
-        return{
+        return {
             url: '',
             id: '',
             source: ''
         }
     },
     watch: {
-        sourceGetMethodAttr: function(newVal){
+        sourceGetMethodAttr: function (newVal) {
             this.url = newVal.url;
             this.id = newVal.id;
             this.source = newVal.source;
@@ -38,22 +38,22 @@ Vue.component('source-get-method-form', {
 
             if (this.id) {
                 sourceGetMethodApi.update({id: this.id}, sourceGetMethod).then(result =>
-                result.json().then(data => {
-                    var index = getIndex(this.sourceGetMethods, data.id);
-                this.sourceGetMethods.splice(index, 1, data);
-                this.url = '';
-                this.id = '';
-                this.source = ''
-            })
-            )
+                    result.json().then(data => {
+                        var index = getIndex(this.sourceGetMethods, data.id);
+                        this.sourceGetMethods.splice(index, 1, data);
+                        this.url = '';
+                        this.id = '';
+                        this.source = ''
+                    })
+                )
             } else {
                 sourceGetMethodApi.save({}, sourceGetMethod).then(result =>
-                result.json().then(data => {
-                    this.sourceGetMethods.push(data);
-                this.name = '';
-                this.source = ''
-            })
-            )
+                    result.json().then(data => {
+                        this.sourceGetMethods.push(data);
+                        this.name = '';
+                        this.source = ''
+                    })
+                )
             }
         }
     }
@@ -74,17 +74,17 @@ Vue.component('source-get-method-row', {
         },
         del: function () {
             sourceGetMethodApi.remove({id: this.sourceGetMethod.id}).then(result => {
-                if (result.ok){
-                this.sourceGetMethods.splice(this.sourceGetMethods.indexOf(this.sourceGetMethod), 1)
-            }
-        })
+                if (result.ok) {
+                    this.sourceGetMethods.splice(this.sourceGetMethods.indexOf(this.sourceGetMethod), 1)
+                }
+            })
         }
     }
 });
 
 Vue.component('source-get-methods-list', {
     props: ['sourceGetMethods'],
-    data: function(){
+    data: function () {
         return {
             sourceGetMethod: null
         }
@@ -97,10 +97,10 @@ Vue.component('source-get-methods-list', {
         '</div>',
     created: function () {
         sourceGetMethodApi.get().then(result =>
-        result.json().then(data =>
-        data.forEach(sourceGetMethod => this.sourceGetMethods.push(sourceGetMethod))
-    )
-    )
+            result.json().then(data =>
+                data.forEach(sourceGetMethod => this.sourceGetMethods.push(sourceGetMethod))
+            )
+        )
     },
     methods: {
         editMethod: function (sourceGetMethod) {
@@ -113,8 +113,7 @@ var sourceGetMethodApp = new Vue({
     el: '#sourceGetMethodApp',
     template: '<source-get-methods-list :sourceGetMethods="sourceGetMethods" />',
     data: {
-        sourceGetMethods: [
-        ]
+        sourceGetMethods: []
     }
 });
 
@@ -124,7 +123,7 @@ var proxyPropertyApi = Vue.resource('api/proxy-properties{/id}')
 Vue.component('proxy-property-form', {
     props: ['proxyProperties', 'proxyPropertyAttr'],
     data: function () {
-        return{
+        return {
             ip: '',
             id: '',
             port: '',
@@ -133,7 +132,7 @@ Vue.component('proxy-property-form', {
         }
     },
     watch: {
-        proxyPropertyAttr: function(newVal){
+        proxyPropertyAttr: function (newVal) {
             this.ip = newVal.ip;
             this.id = newVal.id;
             this.port = newVal.port;
@@ -191,7 +190,7 @@ Vue.component('proxy-property-row', {
         },
         del: function () {
             proxyPropertyApi.remove({id: this.proxyProperty.id}).then(result => {
-                if (result.ok){
+                if (result.ok) {
                     this.proxyProperties.splice(this.proxyProperties.indexOf(this.proxyProperty), 1)
                 }
             })
@@ -201,7 +200,7 @@ Vue.component('proxy-property-row', {
 
 Vue.component('proxy-properties-list', {
     props: ['proxyProperties'],
-    data: function(){
+    data: function () {
         return {
             proxyProperty: null
         }
@@ -230,7 +229,6 @@ var proxyPropertyApp = new Vue({
     el: '#proxyPropertyApp',
     template: '<proxy-properties-list :proxyProperties="proxyProperties" />',
     data: {
-        proxyProperties: [
-        ]
+        proxyProperties: []
     }
 });
