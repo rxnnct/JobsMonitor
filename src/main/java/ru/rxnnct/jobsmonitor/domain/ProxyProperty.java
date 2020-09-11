@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "proxy-properties")
+@Table(name = "proxy_properties")
 @Data
-public class ProxyProperties {
+public class ProxyProperty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -15,7 +15,7 @@ public class ProxyProperties {
     @Column(name = "ip")
     private String ip;
     @Column(name = "port")
-    private Integer port;
+    private Long port;
     @Column(name = "active")
     private Boolean active;
 }
