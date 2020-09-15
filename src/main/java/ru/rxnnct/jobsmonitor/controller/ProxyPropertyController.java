@@ -24,8 +24,8 @@ public class ProxyPropertyController {
     }
 
     @GetMapping("{id}")
-    public ProxyProperty getOne(@PathVariable("id") ProxyProperty proxyPropertyRepo) {
-        return proxyPropertyRepo;
+    public ProxyProperty getOne(@PathVariable("id") ProxyProperty proxyProperty) {
+        return proxyProperty;
     }
 
     @PostMapping

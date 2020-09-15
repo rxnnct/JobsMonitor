@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
+                //todo: make the same for API
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

@@ -24,8 +24,8 @@ public class SourceGetMethodController {
     }
 
     @GetMapping("{id}")
-    public SourceGetMethod getOne(@PathVariable("id") SourceGetMethod sourceGetMethodRepo) {
-        return sourceGetMethodRepo;
+    public SourceGetMethod getOne(@PathVariable("id") SourceGetMethod sourceGetMethod) {
+        return sourceGetMethod;
     }
 
     @PostMapping
