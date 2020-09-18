@@ -8,6 +8,7 @@ function getIndex(list, id) {
 }
 
 //source-get-method-form
+//BEGIN --->
 var sourceGetMethodApi = Vue.resource('api/source-get-methods{/id}')
 
 Vue.component('source-get-method-form', {
@@ -50,7 +51,7 @@ Vue.component('source-get-method-form', {
                 sourceGetMethodApi.save({}, sourceGetMethod).then(result =>
                     result.json().then(data => {
                         this.sourceGetMethods.push(data);
-                        this.name = '';
+                        this.url = '';
                         this.source = ''
                     })
                 )
@@ -116,8 +117,10 @@ var sourceGetMethodApp = new Vue({
         sourceGetMethods: []
     }
 });
+//<--- END
 
 //proxy-property-form
+//BEGIN --->
 var proxyPropertyApi = Vue.resource('api/proxy-properties{/id}')
 
 Vue.component('proxy-property-form', {
@@ -232,6 +235,116 @@ var proxyPropertyApp = new Vue({
         proxyProperties: []
     }
 });
+//<--- END
 
-//todo:
 //scheduler-cron-expression-form
+//BEGIN --->
+var schedulerCronExpressionApi = Vue.resource('api/scheduler-cron-expressions{/id}')
+
+Vue.component('scheduler-cron-expression-form', {
+    props: ['schedulerCronExpressions', 'schedulerCronExpressionAttr'],
+    data: function () {
+        return {
+            expression: '',
+            id: '',
+            source: ''
+        }
+    },
+    watch: {
+        schedulerCronExpressionAttr: function (newVal) {
+            this.expression = newVal.expression;
+            this.id = newVal.id;
+            this.source = newVal.source;
+        }
+    },
+    template:
+        '<div>' +
+        '<input type="text" placeholder="expression" v-model="expression" />' +
+        '<input type="text" placeholder="source (enum number)" v-model="source" />' +
+        '<input type="button" value="Save" @click="save" />' +
+        '</div>',
+    methods: {
+        save: function () {
+            var schedulerCronExpression = {expression: this.expression, source: this.source};
+
+            if (this.id) {
+                schedulerCronExpressionApi.update({id: this.id}, schedulerCronExpression).then(result =>
+                    result.json().then(data => {
+                        var index = getIndex(this.schedulerCronExpressions, data.id);
+                        this.schedulerCronExpressions.splice(index, 1, data);
+                        this.expression = '';
+                        this.id = '';
+                        this.source = ''
+                    })
+                )
+            } else {
+                schedulerCronExpressionApi.save({}, schedulerCronExpression).then(result =>
+                    result.json().then(data => {
+                        this.schedulerCronExpressions.push(data);
+                        this.expression = '';
+                        this.source = ''
+                    })
+                )
+            }
+        }
+    }
+});
+
+Vue.component('scheduler-cron-expression-row', {
+    props: ['schedulerCronExpression', 'editMethod', 'schedulerCronExpressions'],
+    template: '<div>' +
+        '<b> id: {{ schedulerCronExpression.id }} </b>expression: {{ schedulerCronExpression.expression }} <i>Source: {{ schedulerCronExpression.source }}</i>' +
+        '<span style="position: absolute; right: 0">' +
+        '<input type="button" value="Edit" @click="edit" />' +
+        '<input type="button" value="Delete" @click="del" />' +
+        '</span>' +
+        '</div>',
+    methods: {
+        edit: function () {
+            this.editMethod(this.schedulerCronExpression);
+        },
+        del: function () {
+            schedulerCronExpressionApi.remove({id: this.schedulerCronExpression.id}).then(result => {
+                if (result.ok) {
+                    this.schedulerCronExpressions.splice(this.schedulerCronExpressions.indexOf(this.schedulerCronExpression), 1)
+                }
+            })
+        }
+    }
+});
+
+Vue.component('scheduler-cron-expressions-list', {
+    props: ['schedulerCronExpressions'],
+    data: function () {
+        return {
+            schedulerCronExpression: null
+        }
+    },
+    template:
+        '<div style="position: relative; width: 600px; outline: 1px solid; padding: 3px; margin: 3px">' +
+        '<scheduler-cron-expression-form :schedulerCronExpressions="schedulerCronExpressions" :schedulerCronExpressionAttr="schedulerCronExpression" />' +
+        '<scheduler-cron-expression-row v-for="(schedulerCronExpression, id) in schedulerCronExpressions" v-bind:key="schedulerCronExpression.id" :schedulerCronExpression="schedulerCronExpression" ' +
+        ':editMethod="editMethod" :schedulerCronExpressions="schedulerCronExpressions" />' +
+        '</div>',
+    created: function () {
+        schedulerCronExpressionApi.get().then(result =>
+            result.json().then(data =>
+                data.forEach(schedulerCronExpression => this.schedulerCronExpressions.push(schedulerCronExpression))
+            )
+        )
+    },
+    methods: {
+        editMethod: function (schedulerCronExpression) {
+            this.schedulerCronExpression = schedulerCronExpression;
+        }
+    }
+});
+
+var schedulerCronExpressionApp = new Vue({
+    el: '#schedulerCronExpressionApp',
+    template: '<scheduler-cron-expressions-list :schedulerCronExpressions="schedulerCronExpressions" />',
+    data: {
+        schedulerCronExpressions: []
+    }
+});
+//<--- END
