@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.rxnnct.jobsmonitor.domain.SourceGetMethod;
 import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
@@ -21,7 +22,8 @@ public class HeadhunterJobsNumberGrabber {
     }
 
     @Scheduled(cron = "${headhunterJobsNumberGrabberSchedulerCronExpression}")
-    public void reportCurrentTime() {
+//    @Transactional
+    public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
         sourceGetMethods.forEach(sourceGetMethod -> {
