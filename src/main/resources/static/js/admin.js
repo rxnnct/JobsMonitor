@@ -16,6 +16,7 @@ Vue.component('source-get-method-form', {
     data: function () {
         return {
             url: '',
+            name: '',
             id: '',
             source: ''
         }
@@ -23,19 +24,21 @@ Vue.component('source-get-method-form', {
     watch: {
         sourceGetMethodAttr: function (newVal) {
             this.url = newVal.url;
+            this.name = newVal.name;
             this.id = newVal.id;
             this.source = newVal.source;
         }
     },
     template:
         '<div>' +
+        '<input type="text" placeholder="name" v-model="name" />' +
         '<input type="text" placeholder="url" v-model="url" />' +
         '<input type="text" placeholder="source (enum number)" v-model="source" />' +
         '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function () {
-            var sourceGetMethod = {url: this.url, source: this.source};
+            var sourceGetMethod = {url: this.url, name: this.name, source: this.source};
 
             if (this.id) {
                 sourceGetMethodApi.update({id: this.id}, sourceGetMethod).then(result =>
@@ -43,6 +46,7 @@ Vue.component('source-get-method-form', {
                         var index = getIndex(this.sourceGetMethods, data.id);
                         this.sourceGetMethods.splice(index, 1, data);
                         this.url = '';
+                        this.name = '';
                         this.id = '';
                         this.source = ''
                     })
@@ -52,6 +56,7 @@ Vue.component('source-get-method-form', {
                     result.json().then(data => {
                         this.sourceGetMethods.push(data);
                         this.url = '';
+                        this.name = '';
                         this.source = ''
                     })
                 )
@@ -63,7 +68,7 @@ Vue.component('source-get-method-form', {
 Vue.component('source-get-method-row', {
     props: ['sourceGetMethod', 'editMethod', 'sourceGetMethods'],
     template: '<div>' +
-        '<b> id: {{ sourceGetMethod.id }} </b>url: {{ sourceGetMethod.url }} <i>Source: {{ sourceGetMethod.source }}</i>' +
+        '<b> id: {{ sourceGetMethod.id }} </b><i>name: {{ sourceGetMethod.name }}</i> url: {{ sourceGetMethod.url }} <i>Source: {{ sourceGetMethod.source }}</i>' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="Delete" @click="del" />' +

@@ -12,6 +12,8 @@ public class SourceGetMethod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "name")
+    private String name;
     @Column(name = "url")
     private String url;
     @Enumerated(EnumType.STRING)
