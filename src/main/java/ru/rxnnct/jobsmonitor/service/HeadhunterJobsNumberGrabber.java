@@ -10,10 +10,9 @@ import java.util.Date;
 @Component
 @EnableScheduling
 public class HeadhunterJobsNumberGrabber {
-
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(cron = "0 */1 * ? * *")
+    @Scheduled(cron = "${headhunterJobsNumberGrabberSchedulerCronExpression}")
     public void reportCurrentTime() {
         System.out.println(dateFormat.format(new Date()) + ": Test!");
     }
