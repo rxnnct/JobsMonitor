@@ -4,6 +4,7 @@
 * Apache Maven
 * Spring Boot
 * Lombok
+* OAuth 2.0 (Google)
 * Vue.js
 * PostgreSQL
 * Google Charts
