@@ -6,7 +6,7 @@
 * Lombok
 * Vue.js
 * PostgreSQL
-* //line charts js lib in future
+* Google Charts
 
 This project contains two services:
 * Web application that displays vacancies statistics with various filters.
