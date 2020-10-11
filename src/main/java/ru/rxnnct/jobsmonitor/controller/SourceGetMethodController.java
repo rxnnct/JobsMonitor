@@ -9,7 +9,7 @@ import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/source-get-methods")
+@RequestMapping("api/admin/source-get-methods")
 public class SourceGetMethodController {
     private final SourceGetMethodRepo sourceGetMethodRepo;
 

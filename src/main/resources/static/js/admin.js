@@ -9,7 +9,7 @@ function getIndex(list, id) {
 
 //source-get-method-form
 //BEGIN --->
-var sourceGetMethodApi = Vue.resource('api/source-get-methods{/id}')
+var sourceGetMethodApi = Vue.resource('api/admin/source-get-methods{/id}')
 
 Vue.component('source-get-method-form', {
     props: ['sourceGetMethods', 'sourceGetMethodAttr'],
@@ -126,7 +126,7 @@ var sourceGetMethodApp = new Vue({
 
 //proxy-property-form
 //BEGIN --->
-var proxyPropertyApi = Vue.resource('api/proxy-properties{/id}')
+var proxyPropertyApi = Vue.resource('api/admin/proxy-properties{/id}')
 
 Vue.component('proxy-property-form', {
     props: ['proxyProperties', 'proxyPropertyAttr'],

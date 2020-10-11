@@ -9,7 +9,7 @@ import ru.rxnnct.jobsmonitor.repo.ProxyPropertyRepo;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/proxy-properties")
+@RequestMapping("api/admin/proxy-properties")
 public class ProxyPropertyController {
     private final ProxyPropertyRepo proxyPropertyRepo;
 
