@@ -22,7 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .mvcMatchers("/").permitAll()
-                .mvcMatchers("/admin").hasRole("ADMIN")
+                //todo: fix it
+//                .mvcMatchers("/admin*").hasRole("ADMIN")
                 //todo: make the same for API
                 .anyRequest().authenticated()
                 .and()

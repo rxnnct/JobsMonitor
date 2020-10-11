@@ -12,16 +12,16 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-public class HeadhunterJobsNumberGrabber {
+public class HeadhunterJobsQtyGrabber {
 
     private final SourceGetMethodRepo sourceGetMethodRepo;
 
     @Autowired
-    public HeadhunterJobsNumberGrabber(SourceGetMethodRepo sourceGetMethodRepo) {
+    public HeadhunterJobsQtyGrabber(SourceGetMethodRepo sourceGetMethodRepo) {
         this.sourceGetMethodRepo = sourceGetMethodRepo;
     }
 
-    @Scheduled(cron = "${headhunterJobsNumberGrabberSchedulerCronExpression}")
+    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
 //    @Transactional
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
