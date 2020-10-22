@@ -25,19 +25,6 @@ public class HeadhunterJobsQtyGrabber {
         this.proxyPropertyRepo =  proxyPropertyRepo;
     }
 
-    //old code
-//    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
-////    @Transactional
-//    public void grab() {
-//        List<SourceGetMethod> sourceGetMethods;
-//        sourceGetMethods = sourceGetMethodRepo.findAll();
-//        sourceGetMethods.forEach(sourceGetMethod -> {
-//            String currentUrl;
-//            currentUrl = sourceGetMethod.getUrl();
-//            System.out.println(currentUrl);
-//        });
-//    }
-
     @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
 //    @Transactional
     public void grab() {
