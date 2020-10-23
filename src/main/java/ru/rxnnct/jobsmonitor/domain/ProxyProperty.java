@@ -16,6 +16,6 @@ public class ProxyProperty {
     private String ip;
     @Column(name = "port")
     private Long port;
-    @Column(name = "active")
-    private Boolean active;
+    @Column(name = "delay")
+    private Long delay; //To prevent potential blocking by an external service
 }

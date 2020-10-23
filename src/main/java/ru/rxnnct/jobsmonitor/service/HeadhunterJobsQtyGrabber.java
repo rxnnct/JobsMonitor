@@ -21,7 +21,6 @@ import java.util.List;
 @EnableScheduling
 public class HeadhunterJobsQtyGrabber {
 
-    private final int REQUEST_DELAY = 5000; //To prevent potential blocking by an external service
     private final SourceGetMethodRepo sourceGetMethodRepo;
     private final ProxyPropertyRepo proxyPropertyRepo;
 
@@ -32,33 +31,34 @@ public class HeadhunterJobsQtyGrabber {
     }
 
     @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
-//    @Transactional
+    @Transactional
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
         List<ProxyProperty> proxyProperties;
+        //todo: find first
         proxyProperties = proxyPropertyRepo.findAll();
-
-        SimpleClientHttpRequestFactory clientHttpReq = new SimpleClientHttpRequestFactory();
-
+        ProxyProperty proxyProperty = proxyProperties.get(0); //works with main property (first)
         sourceGetMethods.forEach(sourceGetMethod -> {
-            proxyProperties.forEach(proxyProperty -> {
-                try {
-
-                    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyProperty.getIp(), proxyProperty.getPort().intValue()));
-                    clientHttpReq.setProxy(proxy);
-                    String currentUrl;
-                    currentUrl = sourceGetMethod.getUrl();
-                    RestTemplate restTemplate = new RestTemplate(clientHttpReq);
-                    ExternalJson externalJson = restTemplate.getForObject(currentUrl, ExternalJson.class);
-                    System.out.println(currentUrl + " - " + System.currentTimeMillis() + " - *SAVE DATA* Good: " + proxyProperty.getIp());
-                    System.out.println("Found: " + externalJson.getFound());
-                } catch (ResourceAccessException e) {
-                    System.out.println("ALARM! Bad: " + proxyProperty.getIp());
-                }
-            });
+            String currentUrl;
+            currentUrl = sourceGetMethod.getUrl();
+            System.out.println(currentUrl); //todo: remove
             try {
-                Thread.sleep(REQUEST_DELAY);
+                SimpleClientHttpRequestFactory clientHttpReq = new SimpleClientHttpRequestFactory();
+                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyProperty.getIp(), proxyProperty.getPort().intValue()));
+                clientHttpReq.setProxy(proxy);
+                RestTemplate restTemplate = new RestTemplate(clientHttpReq);
+                ExternalJson externalJson = restTemplate.getForObject(currentUrl, ExternalJson.class);
+                if (externalJson != null) {
+                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp()); //todo: save data
+                } else {
+                    System.out.println("ALARM! Bad response: " + currentUrl); //todo: e-mail
+                }
+            } catch (ResourceAccessException e) {
+                System.out.println("ALARM! Bad proxy: " + proxyProperty.getIp()); //todo: e-mail
+            }
+            try {
+                Thread.sleep(proxyProperty.getDelay());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

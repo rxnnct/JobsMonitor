@@ -135,7 +135,7 @@ Vue.component('proxy-property-form', {
             ip: '',
             id: '',
             port: '',
-            active: ''
+            delay: ''
 
         }
     },
@@ -144,19 +144,19 @@ Vue.component('proxy-property-form', {
             this.ip = newVal.ip;
             this.id = newVal.id;
             this.port = newVal.port;
-            this.active = newVal.active;
+            this.delay = newVal.delay;
         }
     },
     template:
         '<div>' +
         '<input type="text" placeholder="ip" v-model="ip" />' +
         '<input type="text" placeholder="port" v-model="port" />' +
-        '<input type="text" placeholder="active (boolean)" v-model="active" />' +
+        '<input type="text" placeholder="request delay (ms)" v-model="delay" />' +
         '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function () {
-            var proxyProperty = {ip: this.ip, port: this.port, active: this.active};
+            var proxyProperty = {ip: this.ip, port: this.port, delay: this.delay};
 
             if (this.id) {
                 proxyPropertyApi.update({id: this.id}, proxyProperty).then(result =>
@@ -166,7 +166,7 @@ Vue.component('proxy-property-form', {
                         this.ip = '';
                         this.id = '';
                         this.port = '';
-                        this.active = ''
+                        this.delay = ''
                     })
                 )
             } else {
@@ -175,7 +175,7 @@ Vue.component('proxy-property-form', {
                         this.proxyProperties.push(data);
                         this.ip = '';
                         this.port = '';
-                        this.active = ''
+                        this.delay = ''
                     })
                 )
             }
@@ -186,7 +186,7 @@ Vue.component('proxy-property-form', {
 Vue.component('proxy-property-row', {
     props: ['proxyProperty', 'editMethod', 'proxyProperties'],
     template: '<div>' +
-        '<b> id: {{ proxyProperty.id }} </b>ip: {{ proxyProperty.ip }} <i>port: {{ proxyProperty.port }}</i> <u>active: {{ proxyProperty.active }}</u>' +
+        '<b> id: {{ proxyProperty.id }} </b>ip: {{ proxyProperty.ip }} <i>port: {{ proxyProperty.port }}</i> <u>delay: {{ proxyProperty.delay }}</u>' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="Delete" @click="del" />' +
