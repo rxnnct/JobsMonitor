@@ -11,7 +11,7 @@ import ru.rxnnct.jobsmonitor.repo.JobsQtyRepo;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/admin/jobs-qty")
+@RequestMapping("api/jobs-qty")
 public class JobsQtyController {
     private final JobsQtyRepo jobsQtyRepo;
 

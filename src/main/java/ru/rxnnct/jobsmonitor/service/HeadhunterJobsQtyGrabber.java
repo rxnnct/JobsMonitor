@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import ru.rxnnct.jobsmonitor.domain.JobsQty;
 import ru.rxnnct.jobsmonitor.domain.ProxyProperty;
 import ru.rxnnct.jobsmonitor.domain.SourceGetMethod;
+import ru.rxnnct.jobsmonitor.repo.JobsQtyRepo;
 import ru.rxnnct.jobsmonitor.repo.ProxyPropertyRepo;
 import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -23,11 +26,13 @@ public class HeadhunterJobsQtyGrabber {
 
     private final SourceGetMethodRepo sourceGetMethodRepo;
     private final ProxyPropertyRepo proxyPropertyRepo;
+    private final JobsQtyRepo jobsQtyRepo;
 
     @Autowired
-    public HeadhunterJobsQtyGrabber(SourceGetMethodRepo sourceGetMethodRepo, ProxyPropertyRepo proxyPropertyRepo) {
+    public HeadhunterJobsQtyGrabber(SourceGetMethodRepo sourceGetMethodRepo, ProxyPropertyRepo proxyPropertyRepo, JobsQtyRepo jobsQtyRepo) {
         this.sourceGetMethodRepo = sourceGetMethodRepo;
         this.proxyPropertyRepo = proxyPropertyRepo;
+        this.jobsQtyRepo = jobsQtyRepo;
     }
 
     @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
@@ -50,7 +55,9 @@ public class HeadhunterJobsQtyGrabber {
                 RestTemplate restTemplate = new RestTemplate(clientHttpReq);
                 ExternalJson externalJson = restTemplate.getForObject(currentUrl, ExternalJson.class);
                 if (externalJson != null) {
-                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp()); //todo: save data
+                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp());
+                    JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
+                    jobsQtyRepo.save(jobsQty);
                 } else {
                     System.out.println("ALARM! Bad response: " + currentUrl); //todo: e-mail
                 }

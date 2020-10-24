@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExternalJson {
-    private int found;
+    private long found;
 
-    public int getFound() {
+    public long getFound() {
         return found;
     }
 }
