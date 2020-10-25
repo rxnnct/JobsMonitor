@@ -17,7 +17,6 @@ import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component

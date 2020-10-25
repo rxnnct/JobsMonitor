@@ -20,13 +20,19 @@ public class JobsQtyController {
         this.jobsQtyRepo = jobsQtyRepo;
     }
 
+//    @GetMapping
+//    public List<JobsQty> list() {
+//        return jobsQtyRepo.findAll();
+//    }
+
+    //test
     @GetMapping
-    public List<JobsQty> list() {
-        return jobsQtyRepo.findAll();
+    public String stats() {
+        return "Data_Java_Python,2001_1000_400,2002_1300_500";
     }
 
-    @GetMapping("{id}")
-    public JobsQty getOne(@PathVariable("id") JobsQty jobsQty) {
-        return jobsQty;
-    }
+//    @GetMapping("{id}")
+//    public JobsQty getOne(@PathVariable("id") JobsQty jobsQty) {
+//        return jobsQty;
+//    }
 }
