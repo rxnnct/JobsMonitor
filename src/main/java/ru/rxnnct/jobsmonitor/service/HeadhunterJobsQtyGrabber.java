@@ -35,7 +35,7 @@ public class HeadhunterJobsQtyGrabber {
         this.jobsQtyRepo = jobsQtyRepo;
     }
 
-    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
+//    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
     @Transactional
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;

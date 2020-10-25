@@ -22,6 +22,9 @@ public class JobsQty {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime recordDateTime;
 
+    public JobsQty() {
+    }
+
     public JobsQty(String name, Long qty) {
         this.name = name;
         this.qty = qty;
