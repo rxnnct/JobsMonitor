@@ -96,7 +96,7 @@ Vue.component('source-get-methods-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 600px; outline: 1px solid; padding: 3px; margin: 3px">' +
+        '<div style="position: relative; width: 750px; outline: 1px solid; padding: 3px; margin: 3px">' +
         '<source-get-method-form :sourceGetMethods="sourceGetMethods" :sourceGetMethodAttr="sourceGetMethod" />' +
         '<source-get-method-row v-for="(sourceGetMethod, id) in sourceGetMethods" v-bind:key="sourceGetMethod.id" :sourceGetMethod="sourceGetMethod" ' +
         ':editMethod="editMethod" :sourceGetMethods="sourceGetMethods" />' +
@@ -214,7 +214,7 @@ Vue.component('proxy-properties-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 600px; outline: 1px solid; padding: 3px; margin: 3px">' +
+        '<div style="position: relative; width: 750px; outline: 1px solid; padding: 3px; margin: 3px">' +
         '<proxy-property-form :proxyProperties="proxyProperties" :proxyPropertyAttr="proxyProperty" />' +
         '<proxy-property-row v-for="(proxyProperty, id) in proxyProperties" v-bind:key="proxyProperty.id" :proxyProperty="proxyProperty" ' +
         ':editMethod="editMethod" :proxyProperties="proxyProperties" />' +
@@ -239,5 +239,25 @@ var proxyPropertyApp = new Vue({
     data: {
         proxyProperties: []
     }
+});
+//<--- END
+
+//run-headhunter-jobs-qty-grabber-form
+//BEGIN --->
+Vue.component('run-headhunter-jobs-qty-grabber-form', {
+    template:
+        '<div>' +
+        '<input type="button" value="Grab once" @click="grab" />' +
+        '</div>',
+    methods: {
+        grab: function () {
+            fetch('api/admin/run-headhunter-jobs-qty-grabber');
+        }
+    }
+});
+
+var runHeadhunterJobsQtyGrabberApp = new Vue({
+    el: '#runHeadhunterJobsQtyGrabberApp',
+    template: '<run-headhunter-jobs-qty-grabber-form />'
 });
 //<--- END
