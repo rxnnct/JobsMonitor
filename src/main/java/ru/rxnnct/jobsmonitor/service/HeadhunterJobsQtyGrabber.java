@@ -22,7 +22,6 @@ import java.util.List;
 @Component
 @EnableScheduling
 public class HeadhunterJobsQtyGrabber {
-
     private final SourceGetMethodRepo sourceGetMethodRepo;
     private final ProxyPropertyRepo proxyPropertyRepo;
     private final JobsQtyRepo jobsQtyRepo;
@@ -54,7 +53,7 @@ public class HeadhunterJobsQtyGrabber {
                 RestTemplate restTemplate = new RestTemplate(clientHttpReq);
                 ExternalJson externalJson = restTemplate.getForObject(currentUrl, ExternalJson.class);
                 if (externalJson != null) {
-                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp());
+                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp()); //todo: remove
                     JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
                     jobsQtyRepo.save(jobsQty);
                 } else {
