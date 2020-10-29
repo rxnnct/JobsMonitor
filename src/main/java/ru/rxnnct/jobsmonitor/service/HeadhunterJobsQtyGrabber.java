@@ -1,6 +1,9 @@
 package ru.rxnnct.jobsmonitor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,10 +43,12 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
-        List<ProxyProperty> proxyProperties;
-        //todo: find first
-        proxyProperties = proxyPropertyRepo.findAll();
-        ProxyProperty proxyProperty = proxyProperties.get(0); //works with main property (first)
+//        Old (remove after tests):
+//        List<ProxyProperty> proxyProperties;
+//        proxyProperties = proxyPropertyRepo.findAll();
+//        ProxyProperty proxyProperty = proxyProperties.get(0); //works with main property (first)
+        Page<ProxyProperty> proxyProperties = proxyPropertyRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "id")));
+        ProxyProperty proxyProperty = proxyProperties.getContent().get(0); //works with main property (first)
         sourceGetMethods.forEach(sourceGetMethod -> {
             String currentUrl;
             currentUrl = sourceGetMethod.getUrl();
