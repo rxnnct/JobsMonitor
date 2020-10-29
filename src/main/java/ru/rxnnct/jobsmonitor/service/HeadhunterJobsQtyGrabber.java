@@ -59,7 +59,7 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
                     JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
                     jobsQtyRepo.save(jobsQty);
                     //test
-                    saveErrorLog("test");
+                    saveErrorLog("test1");
                     //end
                 } else {
                     System.out.println("ALARM! Bad response: " + currentUrl); //todo: e-mail
