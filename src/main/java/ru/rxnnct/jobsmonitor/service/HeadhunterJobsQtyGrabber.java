@@ -43,7 +43,7 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
-//        Old (remove after tests):
+////      Old (remove after tests):
 //        List<ProxyProperty> proxyProperties;
 //        proxyProperties = proxyPropertyRepo.findAll();
 //        ProxyProperty proxyProperty = proxyProperties.get(0); //works with main property (first)
@@ -52,7 +52,6 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
         sourceGetMethods.forEach(sourceGetMethod -> {
             String currentUrl;
             currentUrl = sourceGetMethod.getUrl();
-            System.out.println(currentUrl); //todo: remove
             try {
                 SimpleClientHttpRequestFactory clientHttpReq = new SimpleClientHttpRequestFactory();
                 Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyProperty.getIp(), proxyProperty.getPort().intValue()));
@@ -60,17 +59,13 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
                 RestTemplate restTemplate = new RestTemplate(clientHttpReq);
                 ExternalJson externalJson = restTemplate.getForObject(currentUrl, ExternalJson.class);
                 if (externalJson != null) {
-                    System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp()); //todo: remove
                     JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
                     jobsQtyRepo.save(jobsQty);
-                    //test
-                    saveErrorLog("test1");
-                    //end
                 } else {
-                    System.out.println("ALARM! Bad response: " + currentUrl); //todo: e-mail
+                    saveErrorLog("BAD RESPONSE (" + currentUrl + ")");
                 }
             } catch (ResourceAccessException e) {
-                System.out.println("ALARM! Bad proxy: " + proxyProperty.getIp()); //todo: e-mail
+                saveErrorLog("BAD PROXY (" + proxyProperty.getIp() + ")");
             }
             try {
                 Thread.sleep(proxyProperty.getDelay());
