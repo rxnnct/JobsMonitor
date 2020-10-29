@@ -15,13 +15,14 @@ import ru.rxnnct.jobsmonitor.repo.JobsQtyRepo;
 import ru.rxnnct.jobsmonitor.repo.ProxyPropertyRepo;
 import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
 
 @Component
 @EnableScheduling
-public class HeadhunterJobsQtyGrabber {
+public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
     private final SourceGetMethodRepo sourceGetMethodRepo;
     private final ProxyPropertyRepo proxyPropertyRepo;
     private final JobsQtyRepo jobsQtyRepo;
@@ -33,8 +34,9 @@ public class HeadhunterJobsQtyGrabber {
         this.jobsQtyRepo = jobsQtyRepo;
     }
 
-//    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
+    @Override
     @Transactional
+//    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
@@ -56,6 +58,9 @@ public class HeadhunterJobsQtyGrabber {
                     System.out.println("Found: " + externalJson.getFound() + " " + proxyProperty.getIp()); //todo: remove
                     JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
                     jobsQtyRepo.save(jobsQty);
+                    //test
+                    saveErrorLog("test");
+                    //end
                 } else {
                     System.out.println("ALARM! Bad response: " + currentUrl); //todo: e-mail
                 }
