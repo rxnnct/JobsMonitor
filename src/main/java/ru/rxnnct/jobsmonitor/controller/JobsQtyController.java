@@ -5,23 +5,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.rxnnct.jobsmonitor.repo.JobsQtyRepo;
-import ru.rxnnct.jobsmonitor.service.JobsQtyConverter;
+import ru.rxnnct.jobsmonitor.service.JobsQtyGoogleChartsDataHandler;
 
 @RestController
 @RequestMapping("api/jobs-qty")
 public class JobsQtyController {
-    private final JobsQtyRepo jobsQtyRepo;
     private final ApplicationContext context;
 
     @Autowired
-    public JobsQtyController(JobsQtyRepo jobsQtyRepo, ApplicationContext context) {
-        this.jobsQtyRepo = jobsQtyRepo;
+    public JobsQtyController(ApplicationContext context) {
         this.context = context;
     }
 
     @GetMapping
     public String stats() {
-        return context.getBean(JobsQtyConverter.class).convertToGoogleChartsArray(jobsQtyRepo.findAll());
+        return context.getBean(JobsQtyGoogleChartsDataHandler.class).makeGoogleChartsData();
     }
 }
