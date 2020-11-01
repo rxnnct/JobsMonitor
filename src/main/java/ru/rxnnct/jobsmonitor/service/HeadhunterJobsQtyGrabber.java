@@ -58,11 +58,21 @@ public class HeadhunterJobsQtyGrabber extends BaseGrabber {
                     jobsQtyRepo.save(jobsQty);
                 } else {
                     saveErrorLog("BAD RESPONSE (" + currentUrl + ")");
-                    //todo: save last data
+                    //todo: save previous data (duplicatePreviousData())
                 }
             } catch (ResourceAccessException e) {
                 saveErrorLog("BAD PROXY (" + proxyProperty.getIp() + ")");
-                //todo: save previois data
+                //todo: save previous data (duplicatePreviousData())
+            }
+            try {
+                Thread.sleep(proxyProperty.getDelay());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+//    private void duplicatePreviousData(JobsQty jobsQty){
 //                List<JobsQty> jobsQties;
 //                jobsQties = jobsQtyRepo.findAll();
 //                int i = jobsQties.size();
@@ -75,12 +85,5 @@ public class HeadhunterJobsQtyGrabber extends BaseGrabber {
 //                    }
 //                    i--;
 //                }
-            }
-            try {
-                Thread.sleep(proxyProperty.getDelay());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+//    }
 }

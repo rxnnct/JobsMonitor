@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "jobs_qty")
 @Data
-public class JobsQty {
+public class JobsQty implements Comparable<JobsQty>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,5 +29,10 @@ public class JobsQty {
         this.name = name;
         this.qty = qty;
         this.setRecordDateTime(LocalDateTime.now());
+    }
+
+    @Override
+    public int compareTo(JobsQty o) {
+        return Long.compare(getId(), o.getId());
     }
 }

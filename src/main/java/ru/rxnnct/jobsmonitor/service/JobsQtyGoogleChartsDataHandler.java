@@ -1,6 +1,7 @@
 package ru.rxnnct.jobsmonitor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.rxnnct.jobsmonitor.domain.JobsQty;
 import ru.rxnnct.jobsmonitor.domain.SourceGetMethod;
@@ -9,12 +10,15 @@ import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 @Component
 public class JobsQtyGoogleChartsDataHandler {
     private final JobsQtyRepo jobsQtyRepo;
     private final SourceGetMethodRepo sourceGetMethodRepo;
+    @Value("${googleChartsDateFormat}")
+    String googleChartsDateFormat;
 
     @Autowired
     public JobsQtyGoogleChartsDataHandler(JobsQtyRepo jobsQtyRepo, SourceGetMethodRepo sourceGetMethodRepo) {
@@ -23,27 +27,27 @@ public class JobsQtyGoogleChartsDataHandler {
     }
 
     public String makeGoogleChartsData(){
-        String result = "Date";
+        StringBuilder result = new StringBuilder("Date");
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
         for (SourceGetMethod sourceGetMethod : sourceGetMethods) {
-            result = result + "_" + sourceGetMethod.getName();
+            result.append("_").append(sourceGetMethod.getName());
         }
         List<JobsQty> jobsQties;
         jobsQties = jobsQtyRepo.findAll();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Collections.sort(jobsQties);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(googleChartsDateFormat);
         String currentDate;
         String lastDate = LocalDateTime.MIN.toString();
         for (JobsQty jobsQty : jobsQties){
             currentDate = jobsQty.getRecordDateTime().format(formatter);
             if (currentDate.equals(lastDate)){
-                result += "_" + jobsQty.getQty().toString();
+                result.append("_").append(jobsQty.getQty().toString());
             } else {
-                result += "," + currentDate + "_" + jobsQty.getQty().toString();
+                result.append(",").append(currentDate).append("_").append(jobsQty.getQty().toString());
             }
             lastDate = currentDate;
         }
-        System.out.println(result);
-        return result;
+        return result.toString();
     }
 }

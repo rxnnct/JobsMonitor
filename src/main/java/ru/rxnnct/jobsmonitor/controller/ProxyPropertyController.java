@@ -19,7 +19,7 @@ public class ProxyPropertyController {
     }
 
     @GetMapping
-    public List<ProxyProperty> list() {
+    public List<ProxyProperty> get() {
         return proxyPropertyRepo.findAll();
     }
 
