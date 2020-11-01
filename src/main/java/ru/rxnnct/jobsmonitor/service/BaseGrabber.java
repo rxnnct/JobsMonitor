@@ -4,7 +4,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class AbstractGrabber {
+public abstract class BaseGrabber {
 
     abstract void grab();
 

@@ -18,14 +18,13 @@ import ru.rxnnct.jobsmonitor.repo.JobsQtyRepo;
 import ru.rxnnct.jobsmonitor.repo.ProxyPropertyRepo;
 import ru.rxnnct.jobsmonitor.repo.SourceGetMethodRepo;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
 
 @Component
 @EnableScheduling
-public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
+public class HeadhunterJobsQtyGrabber extends BaseGrabber {
     private final SourceGetMethodRepo sourceGetMethodRepo;
     private final ProxyPropertyRepo proxyPropertyRepo;
     private final JobsQtyRepo jobsQtyRepo;
@@ -39,14 +38,10 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
 
     @Override
     @Transactional
-//    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
+    @Scheduled(cron = "${headhunterJobsQtyGrabberSchedulerCronExpression}")
     public void grab() {
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
-////      Old (remove after tests):
-//        List<ProxyProperty> proxyProperties;
-//        proxyProperties = proxyPropertyRepo.findAll();
-//        ProxyProperty proxyProperty = proxyProperties.get(0); //works with main property (first)
         Page<ProxyProperty> proxyProperties = proxyPropertyRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "id")));
         ProxyProperty proxyProperty = proxyProperties.getContent().get(0); //works with main property (first)
         sourceGetMethods.forEach(sourceGetMethod -> {
@@ -63,9 +58,23 @@ public class HeadhunterJobsQtyGrabber extends AbstractGrabber{
                     jobsQtyRepo.save(jobsQty);
                 } else {
                     saveErrorLog("BAD RESPONSE (" + currentUrl + ")");
+                    //todo: save last data
                 }
             } catch (ResourceAccessException e) {
                 saveErrorLog("BAD PROXY (" + proxyProperty.getIp() + ")");
+                //todo: save previois data
+//                List<JobsQty> jobsQties;
+//                jobsQties = jobsQtyRepo.findAll();
+//                int i = jobsQties.size();
+//                boolean done = false;
+//                while (!done || i==0){
+//                    if (---.getName().equals(jobsQties.get(i).getName())){
+//                        JobsQty jobsQty = new JobsQty(---.getName(), jobsQties.get(i).getQty());
+//                        jobsQtyRepo.save(jobsQty);
+//                        done = true;
+//                    }
+//                    i--;
+//                }
             }
             try {
                 Thread.sleep(proxyProperty.getDelay());
