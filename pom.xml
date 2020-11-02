@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.rxnnct</groupId>
-	<artifactId>jobsmonitorwebapp</artifactId>
+	<artifactId>jobsmonitor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jobsmonitorwebapp</name>
-	<description>JobsMonitor web application</description>
+	<name>jobsmonitor</name>
+	<description>JobsMonitor</description>
 
 	<properties>
 		<java.version>11</java.version>
