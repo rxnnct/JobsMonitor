@@ -68,7 +68,7 @@ Vue.component('source-get-method-form', {
 Vue.component('source-get-method-row', {
     props: ['sourceGetMethod', 'editMethod', 'sourceGetMethods'],
     template: '<div>' +
-        '<b> id: {{ sourceGetMethod.id }} </b><i>name: {{ sourceGetMethod.name }}</i> url: {{ sourceGetMethod.url }} <i>Source: {{ sourceGetMethod.source }}</i>' +
+        '<b>id: </b>{{ sourceGetMethod.id }} <b>name: </b>{{ sourceGetMethod.name }} <b>url: </b>{{ sourceGetMethod.url }} <b>source: </b>{{ sourceGetMethod.source }}' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="Delete" @click="del" />' +
@@ -96,7 +96,7 @@ Vue.component('source-get-methods-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 750px; outline: 1px solid; padding: 3px; margin: 3px">' +
+        '<div style="position: relative; width: 800px; outline: 1px solid; padding: 3px; margin: 3px">' +
         '<source-get-method-form :sourceGetMethods="sourceGetMethods" :sourceGetMethodAttr="sourceGetMethod" />' +
         '<source-get-method-row v-for="(sourceGetMethod, id) in sourceGetMethods" v-bind:key="sourceGetMethod.id" :sourceGetMethod="sourceGetMethod" ' +
         ':editMethod="editMethod" :sourceGetMethods="sourceGetMethods" />' +
@@ -186,7 +186,7 @@ Vue.component('proxy-property-form', {
 Vue.component('proxy-property-row', {
     props: ['proxyProperty', 'editMethod', 'proxyProperties'],
     template: '<div>' +
-        '<b> id: {{ proxyProperty.id }} </b>ip: {{ proxyProperty.ip }} <i>port: {{ proxyProperty.port }}</i> <u>delay: {{ proxyProperty.delay }}</u>' +
+        '<b>id: </b>{{ proxyProperty.id }} <b>ip: </b>{{ proxyProperty.ip }} <b>port: </b>{{ proxyProperty.port }} <b>delay: </b>{{ proxyProperty.delay }}' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="Delete" @click="del" />' +
@@ -214,7 +214,7 @@ Vue.component('proxy-properties-list', {
         }
     },
     template:
-        '<div style="position: relative; width: 750px; outline: 1px solid; padding: 3px; margin: 3px">' +
+        '<div style="position: relative; width: 800px; outline: 1px solid; padding: 3px; margin: 3px">' +
         '<proxy-property-form :proxyProperties="proxyProperties" :proxyPropertyAttr="proxyProperty" />' +
         '<proxy-property-row v-for="(proxyProperty, id) in proxyProperties" v-bind:key="proxyProperty.id" :proxyProperty="proxyProperty" ' +
         ':editMethod="editMethod" :proxyProperties="proxyProperties" />' +
