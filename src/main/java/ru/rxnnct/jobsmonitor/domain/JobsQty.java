@@ -32,7 +32,7 @@ public class JobsQty implements Comparable<JobsQty>{
     }
 
     @Override
-    public int compareTo(JobsQty o) {
-        return Long.compare(getId(), o.getId());
+    public int compareTo(JobsQty otherJobsQty) {
+        return Long.compare(getId(), otherJobsQty.getId());
     }
 }

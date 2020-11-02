@@ -19,7 +19,7 @@ public class SourceGetMethodController {
     }
 
     @GetMapping
-    public List<SourceGetMethod> list() {
+    public List<SourceGetMethod> get() {
         return sourceGetMethodRepo.findAll();
     }
 

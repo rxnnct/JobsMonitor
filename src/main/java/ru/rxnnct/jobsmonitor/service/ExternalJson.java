@@ -3,10 +3,10 @@ package ru.rxnnct.jobsmonitor.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExternalJson {
+class ExternalJson {
     private long found;
 
-    public long getFound() {
+    long getFound() {
         return found;
     }
 }
