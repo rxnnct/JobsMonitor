@@ -13,4 +13,5 @@ This project contains two parts:
 * Grabber for collecting information about vacancies from open sources via proxies.
 
 ## Screenshots
-![screenshots](index.png)
+![index](index.png)
+![admin](admin.png)
