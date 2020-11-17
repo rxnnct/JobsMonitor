@@ -27,14 +27,18 @@ public class JobsQtyGoogleChartsDataHandler {
     }
 
     public String makeGoogleChartsData(){
-        StringBuilder result = new StringBuilder("Date");
         List<SourceGetMethod> sourceGetMethods;
         sourceGetMethods = sourceGetMethodRepo.findAll();
+        List<JobsQty> jobsQties;
+        jobsQties = jobsQtyRepo.findAll();
+        return listsToResultString(sourceGetMethods, jobsQties);
+    }
+
+    public String listsToResultString(List<SourceGetMethod> sourceGetMethods, List<JobsQty> jobsQties){
+        StringBuilder result = new StringBuilder("Date");
         for (SourceGetMethod sourceGetMethod : sourceGetMethods) {
             result.append("_").append(sourceGetMethod.getName());
         }
-        List<JobsQty> jobsQties;
-        jobsQties = jobsQtyRepo.findAll();
         Collections.sort(jobsQties);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(googleChartsDateFormat);
         String currentDate;
@@ -48,6 +52,7 @@ public class JobsQtyGoogleChartsDataHandler {
             }
             lastDate = currentDate;
         }
+
         return result.toString();
     }
 }
