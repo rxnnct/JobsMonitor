@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.rxnnct.jobsmonitor.service.JobsQtyGoogleChartsDataHandler;
 
+/**
+ * Returns jobs quantities.
+ */
+
 @RestController
 @RequestMapping("api/jobs-qty")
 public class JobsQtyController {

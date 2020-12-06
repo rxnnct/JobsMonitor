@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Contains a method to access the API.
+ */
+
 @Entity
 @Table(name = "source_get_methods")
 @Data

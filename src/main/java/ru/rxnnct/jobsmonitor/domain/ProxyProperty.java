@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Contains proxy settings.
+ */
+
 @Entity
 @Table(name = "proxy_properties")
 @Data

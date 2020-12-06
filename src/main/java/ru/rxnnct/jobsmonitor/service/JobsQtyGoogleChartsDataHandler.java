@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Converts data for charts.
+ */
+
 @Component
 public class JobsQtyGoogleChartsDataHandler {
     private final JobsQtyRepo jobsQtyRepo;

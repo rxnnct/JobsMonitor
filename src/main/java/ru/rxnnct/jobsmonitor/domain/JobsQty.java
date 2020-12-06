@@ -6,6 +6,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Number of vacancies for a specific request.
+ */
+
 @Entity
 @Table(name = "jobs_qty")
 @Data
