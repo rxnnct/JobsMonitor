@@ -1,12 +1,12 @@
 # JobsMonitor
 
 ## Implementation details
-* Apache Maven
-* Spring Boot
-* Lombok
+* Spring Framework
 * Vue.js
 * PostgreSQL
 * Google Charts
+* Apache Maven
+* Lombok
 
 ## About application
 This project contains two parts:
