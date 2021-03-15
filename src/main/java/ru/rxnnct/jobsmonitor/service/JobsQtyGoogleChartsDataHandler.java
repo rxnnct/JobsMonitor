@@ -22,7 +22,7 @@ public class JobsQtyGoogleChartsDataHandler {
     private final JobsQtyRepo jobsQtyRepo;
     private final SourceGetMethodRepo sourceGetMethodRepo;
     @Value("${googleChartsDateFormat}")
-    String googleChartsDateFormat;
+    private String googleChartsDateFormat;
 
     @Autowired
     public JobsQtyGoogleChartsDataHandler(JobsQtyRepo jobsQtyRepo, SourceGetMethodRepo sourceGetMethodRepo) {
