@@ -1,5 +1,6 @@
 package ru.rxnnct.jobsmonitor.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,8 @@ public class HeadhunterJobsQtyGrabber extends BaseGrabber {
     private final ProxyPropertyRepo proxyPropertyRepo;
     private final JobsQtyRepo jobsQtyRepo;
 
+    private static final Logger log = Logger.getLogger(HeadhunterJobsQtyGrabber.class);
+
     @Autowired
     public HeadhunterJobsQtyGrabber(SourceGetMethodRepo sourceGetMethodRepo, ProxyPropertyRepo proxyPropertyRepo, JobsQtyRepo jobsQtyRepo) {
         this.sourceGetMethodRepo = sourceGetMethodRepo;
@@ -57,11 +60,11 @@ public class HeadhunterJobsQtyGrabber extends BaseGrabber {
                     JobsQty jobsQty = new JobsQty(sourceGetMethod.getName(), externalJson.getFound());
                     jobsQtyRepo.save(jobsQty);
                 } else {
-                    saveErrorLog("BAD RESPONSE (" + currentUrl + ")");
+                    log.error("BAD RESPONSE (" + currentUrl + ")");
                     //todo: save previous data (duplicatePreviousData())
                 }
             } catch (ResourceAccessException e) {
-                saveErrorLog("BAD PROXY (" + proxyProperty.getIp() + ")");
+                log.error("BAD PROXY (" + proxyProperty.getIp() + ")");
                 //todo: save previous data (duplicatePreviousData())
             }
             try {

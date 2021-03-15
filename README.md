@@ -7,6 +7,7 @@
 * Google Charts
 * Apache Maven
 * Lombok
+* Log4j
 
 ## About application
 This project contains two parts:
