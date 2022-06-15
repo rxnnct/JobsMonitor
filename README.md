@@ -12,7 +12,7 @@
 ## About application
 This project contains two parts:
 * Web application that displays vacancies statistics with various filters. It has an admin panel.
-* Grabber for collecting information about vacancies from open sources via proxies. It can run on schedule or using the "Grub once" button in the admin panel.
+* Grabber for collecting information about vacancies from open sources via proxies. It can run on schedule or using the "Grab once" button in the admin panel.
 
 ## Screenshots
 ### Main page
